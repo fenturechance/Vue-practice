@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.js'></script>
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var data = {a:1}
+        var vm = new Vue({
+            data: data
+        })
+        vm.a===data.a;
+        document.write(vm.a+'，'+data.a+'<br>');
+        vm.a=3;
+        document.write(vm.a+'，'+data.a);
+    </script>
+</body>
+</html>
