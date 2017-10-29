@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js'></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="watch-example">
+        <p>
+            輸入一個 yes/no 問句:
+            <input v-model="question">
+        </p>
+        <p>{{ answer }}</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script>
+        var watchExampleVM = new Vue({
+            el: '#watch-example',
+            data: {
+                question: '',
+                answer: '你要打完才能看到結果喔',
+                image: ''
+            },
+            watch: {
+                question: function (newQuestion) {
+                    this.answer = '你正在輸入'
+                    this.getAnswer()
+                }
+            },
+            methods: { //輸入完畢後才會發出
+                getAnswer: _.debounce(
+                    function () {
+                        if (this.question.indexOf('?') === -1) {
+                            this.answer = '你忘記問號了'
+                            return
+                        }
+                        this.answer = '思考中'
+                        var vm = this //避免this的值錯亂
+                        //取代this.$http.get //Vue.prototype.$http = axios
+                        axios.get('https://yesno.wtf/api')
+                            .then(function (response) {
+                                vm.answer = _.capitalize(response.data.answer)
+                                vm.image = '<img src="' + response.data.image + '"/>'
+                            })
+                            .catch(function (error) {
+                                vm.answer = '沒找到東西QQ ' + error
+                            })
+                    },
+                    // 这是我们为判定用户停止输入等待的毫秒数
+                    500
+                )
+            }
+        })
+    </script>
+</body>
+
+</html>
