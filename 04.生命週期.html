@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js'></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <button @click="updateValue">更新</button>
+        <button @click="destroyValue">刪除</button>         -->
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {apple: 1},
+            beforeCreate:function(){$('body').append('beforeCreated：'+this.apple+'<br>')},
+            created:function(){$('body').append('Created：'+this.apple+'<br>')},
+            beforeMount:function(){$('body').append('beforeMount：'+this.apple+'<br>')},
+            mounted:function(){$('body').append('mounted：'+this.apple+'<br>')},
+            // beforeUpdate:function(){$('body').append('beforeUpdate：'+this.apple+'<br>')},
+            // updated:function(){$('body').append('updated：'+this.apple+'<br>')},
+            // beforeDestroy:function(){$('body').append('beforeDestroy：'+this.apple+'<br>')},
+            // destroyed:function(){$('body').append('destroyed：'+this.apple+'<br>')},
+            // methods: {
+            //     updateValue(){this.apple+=1},
+            //     destroyValue(){this.apple.$destory}
+            // }
+        });
+    </script>
+</body>
+</html>
